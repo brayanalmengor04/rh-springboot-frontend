@@ -9,7 +9,7 @@ export default function ListEmployees() {
    * URL del backend donde se encuentra el endpoint de empleados.
    * Se asume que el backend está corriendo en `localhost:8080`.
    */
-  const urlBackend = "http://localhost:8080/rh-app/employees";
+  const urlBackend = "http://localhost:8080/rh-app/employee";
 
   /**
    * Estado que almacena la lista de empleados obtenidos del backend.
@@ -40,6 +40,11 @@ export default function ListEmployees() {
       console.error("Error al cargar los empleados:", error);
     }
   };
+
+  const deleteEmployee = async (id) =>{
+    await axios.delete(`${urlBackend}/${id}`) 
+    loadEmployees();
+  }
 
   return (
     <div className="container">
@@ -82,6 +87,11 @@ export default function ListEmployees() {
                   >
                     Edit
                   </Link>
+                  <button onClick={()=> deleteEmployee(employee.id)}
+                    className="btn btn-danger btn-sm"
+                    >
+                    Delete
+                  </button>
                 </div>
               </td>
             </tr>
